@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapbox Map</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        #map {
+            width: 100%; /* Full width */
+            height: calc(100vh - 152px); /* Adjusted for the quick action bar and header */
+            /* Add any additional styles you need for the map */
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGVyZWtmMTM4IiwiYSI6ImNsc2U4Z285MzA1NjcyanFwNGJiMThqYXoifQ.iZxXYt40H_Unfi6LyGaLEg'; // Replace with your Mapbox access token
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/derekf138/clraaq4o8001z01oobaxj1lpd',
+        center: [-102.4967259, 39.7837117], // Updated center point
+        zoom: 4 // Updated starting zoom
+    });
+
+    var geolocateControl = new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserLocation: true,
+        fitBoundsOptions: {
+            maxZoom: 15
+        }
+    });
+
+    map.addControl(geolocateControl);
+
+    // Automatically trigger the geolocation control to prompt the user for location access
+    map.on('load', function() {
+        geolocateControl.trigger();
+    });
+</script>
+</body>
+</html>
