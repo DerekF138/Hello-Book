@@ -18,16 +18,15 @@
 
         document.getElementById('request-permission').addEventListener('click', () => {
             navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    document.getElementById('request-permission').style.display = 'none';
-                    var html5QrcodeScanner = new Html5QrcodeScanner(
-                        "reader", { fps: 10, qrbox: 250 });
-                    html5QrcodeScanner.render(onScanSuccess, onScanError);
-                })
-                .catch(error => {
-                    console.error('Camera permission denied.', error);
-                    alert('Camera permission is required to use the QR scanner.');
-                });
+            .then(stream => {
+                document.getElementById('request-permission').style.display = 'none';
+                var html5QrcodeScanner = new Html5QrcodeScanner(
+                    "reader", { fps: 10, qrbox: 250 });
+                html5QrcodeScanner.render(onScanSuccess, onScanError);
+            })
+            .catch(error => {
+                console.error('Permission denied:', error);
+            });
         });
     </script>
 </body>
