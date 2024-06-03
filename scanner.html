@@ -54,10 +54,12 @@
         document.getElementById('barcode-result').value = sBarcode;
         console.log('Decoded Barcode: ', sBarcode);
 
-        // Assuming the scanned QR code contains a URL, redirect to it
+        // Check if the scanned data is a URL
         if (isValidURL(sBarcode)) {
+          console.log('Valid URL detected:', sBarcode);
           window.location.href = sBarcode;
         } else {
+          console.log('Scanned data is not a valid URL:', sBarcode);
           alert('Scanned data is not a valid URL');
         }
       });
