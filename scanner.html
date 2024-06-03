@@ -12,12 +12,21 @@
         }
 
         function onScanError(errorMessage) {
-            // Handle scan error
+            console.error(errorMessage);
         }
 
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess, onScanError);
+
+        // Request camera permission
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                console.log('Camera permission granted.');
+            })
+            .catch(error => {
+                console.error('Camera permission denied.', error);
+            });
     </script>
 </body>
 </html>
