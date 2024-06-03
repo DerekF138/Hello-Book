@@ -6,6 +6,7 @@
 </head>
 <body>
     <div id="reader" style="width:600px;height:300px;"></div>
+    <button id="request-permission">Request Camera Permission</button>
     <script>
         function onScanSuccess(qrCodeMessage) {
             alert(`QR Code detected: ${qrCodeMessage}`);
@@ -15,18 +16,19 @@
             console.error(errorMessage);
         }
 
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess, onScanError);
-
-        // Request camera permission
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                console.log('Camera permission granted.');
-            })
-            .catch(error => {
-                console.error('Camera permission denied.', error);
-            });
+        document.getElementById('request-permission').addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    document.getElementById('request-permission').style.display = 'none';
+                    var html5QrcodeScanner = new Html5QrcodeScanner(
+                        "reader", { fps: 10, qrbox: 250 });
+                    html5QrcodeScanner.render(onScanSuccess, onScanError);
+                })
+                .catch(error => {
+                    console.error('Camera permission denied.', error);
+                    alert('Camera permission is required to use the QR scanner.');
+                });
+        });
     </script>
 </body>
 </html>
