@@ -53,7 +53,23 @@
         const sBarcode = String.fromCharCode.apply(null, decodingResult[0].data);
         document.getElementById('barcode-result').value = sBarcode;
         console.log('Decoded Barcode: ', sBarcode);
+
+        // Assuming the scanned QR code contains a URL, redirect to it
+        if (isValidURL(sBarcode)) {
+          window.location.href = sBarcode;
+        } else {
+          alert('Scanned data is not a valid URL');
+        }
       });
+
+      function isValidURL(string) {
+        try {
+          new URL(string);
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
     });
   </script>
 </body>
