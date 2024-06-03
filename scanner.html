@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>QR Code Scanner</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
-    <script src="scanner.js" defer></script>
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barcode Scanner</title>
+  <script src="https://websdk.datasymbol.com/srvhost/wix/wixDataSymbolScannerElement.min.js"></script>
 </head>
 <body>
-    <div id="reader"></div>
-    <button id="request-permission">Request Camera Permission</button>
+  <div id="datasymbol-scanner" style="position: absolute; right: 0; top: 0;"></div>
+  <script>
+    const xAlign = 'right'; // Options: none, left, right, float
+    const yAlign = 'top'; // Options: none, top, bottom, float
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const scannerElement = document.createElement('datasymbol-scanner');
+      document.body.appendChild(scannerElement);
+
+      scannerElement.addEventListener('DataSymbolBarcode', function (event) {
+        if (!event.detail) return;
+        const decodingResult = event.detail;
+        const sBarcode = String.fromCharCode.apply(null, decodingResult.data);
+        console.log('Decoded Barcode: ', sBarcode);
+        // Here you can send the decoded barcode to your desired input field or backend
+      });
+    });
+  </script>
 </body>
 </html>
