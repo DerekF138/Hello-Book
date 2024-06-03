@@ -69,6 +69,10 @@
         }
       });
 
+      scannerElement.addEventListener('error', function (event) {
+        console.error('Error with scanner:', event);
+      });
+
       function isValidURL(string) {
         try {
           new URL(string);
@@ -77,6 +81,8 @@
           return false;
         }
       }
+
+      console.log('Scanner element initialized:', scannerElement);
     });
   </script>
 </body>
