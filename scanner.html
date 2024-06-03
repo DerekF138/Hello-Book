@@ -48,11 +48,16 @@
       scannerContainer.appendChild(scannerElement);
 
       scannerElement.addEventListener('DataSymbolBarcode', function (event) {
-        if (!event.detail) return;
+        console.log('DataSymbolBarcode event triggered', event);
+        if (!event.detail) {
+          console.log('No detail in event');
+          return;
+        }
         const decodingResult = event.detail;
+        console.log('Decoding result:', decodingResult);
         const sBarcode = String.fromCharCode.apply(null, decodingResult[0].data);
+        console.log('Decoded Barcode:', sBarcode);
         document.getElementById('barcode-result').value = sBarcode;
-        console.log('Decoded Barcode: ', sBarcode);
 
         // Check if the scanned data is a URL
         if (isValidURL(sBarcode)) {
